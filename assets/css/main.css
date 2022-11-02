@@ -1,0 +1,27 @@
+.poper-modal-content-wrap {
+	background: #eee;
+	padding: 20px;
+	border: 1px solid #999;
+	width: 500px;
+	position: fixed;
+}
+.vertical-position-top {
+	top: 20px;
+}
+.vertical-position-bottom {
+	bottom: 20px;
+}
+.vertical-position-center {
+	top: 50%;
+    transform: translate(-50%, -50%) !important;
+}
+.horizontal-position-right {
+	right: 10px;
+}
+.horizontal-position-left {
+	left: 10px;
+}
+.horizontal-position-center {
+	left: 50%;
+    transform: translateX(-50%);
+}
