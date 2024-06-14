@@ -36,10 +36,10 @@ class Meta_Base {
   public static function display_callback( $post ) {
     $position = get_post_meta( $post->ID, '_popx_popup_position', true );
     $activePopup = get_post_meta( $post->ID, '_popx_active_popup', true );
-
+    self::meta_style();
     ?>
     <div class="popx-meta-field-group">
-      <div class="popx-meta-field-inner">
+      <div class="popx-meta-field-inner popx-field-type-switch">
         <label><?php esc_html_e( 'Active Popup', 'popx' ); ?></label>
         <input type="checkbox" value="yes" <?php checked( $activePopup, 'yes' ); ?> name="active_popup">
       </div>
@@ -48,7 +48,7 @@ class Meta_Base {
     <div class="popx-meta-field-group">
       <div class="popx-meta-field-inner">
         <label><?php esc_html_e( 'Popup Position', 'popx' ); ?></label>
-        <select name="popup_position">
+        <select class="popx-input-field" name="popup_position">
           <option <?php selected( $position, 'top-right' ); ?> value="top-right">Top Right</option>
           <option <?php selected( $position, 'top-left' ); ?> value="top-left">Top Left</option>
           <option <?php selected( $position, 'center' ); ?> value="center">Center</option>
@@ -61,7 +61,7 @@ class Meta_Base {
     <div class="popx-meta-field-group">
       <div class="popx-meta-field-inner">
         <label><?php esc_html_e( 'Display Page Type', 'popx' ); ?></label>
-        <select name="display_page_type">
+        <select class="popx-input-field" name="display_page_type">
           <option <?php selected( $position, 'top-right' ); ?> value="entire-pages">Entire Pages</option>
           <option <?php selected( $position, 'top-right' ); ?> value="singular-archive">Singular and Archive Pages</option>
           <option <?php selected( $position, 'top-right' ); ?> value="specific-pages">Specific Pages</option>
@@ -72,7 +72,7 @@ class Meta_Base {
     <div class="popx-meta-field-group">
       <div class="popx-meta-field-inner">
         <label><?php esc_html_e( 'Pages', 'popx' ); ?></label>
-        <select name="display_pages">
+        <select class="popx-input-field" name="display_pages">
           <?php 
           echo \Popx\Helper::getPagesSelectOption();
           ?>
@@ -80,15 +80,15 @@ class Meta_Base {
       </div>
     </div>
     <div class="popx-meta-field-group">
-      <div class="popx-meta-field-inner">
+      <div class="popx-meta-field-inner popx-field-type-number">
         <label><?php esc_html_e( 'Modal Width', 'popx' ); ?></label>
-        <input type="text" value=""  name="modal_width">
+        <input type="number" class="popx-input-field" value=""  name="modal_width">
       </div>
     </div>
     <div class="popx-meta-field-group">
-      <div class="popx-meta-field-inner">
+      <div class="popx-meta-field-inner popx-field-type-number">
         <label><?php esc_html_e( 'Modal Height', 'popx' ); ?></label>
-        <input type="text" value="" name="modal_height">
+        <input type="number" class="popx-input-field" value="" name="modal_height">
       </div>
     </div>
     <?php
@@ -107,6 +107,35 @@ class Meta_Base {
       }
       update_post_meta( $post_id, '_popx_popup_position', sanitize_text_field( $position ) );
       update_post_meta( $post_id, '_popx_active_popup', sanitize_text_field( $activePopup ) );
+  }
+
+  public static function meta_style() {
+    ?>
+    <style>
+      .popx-meta-field-group {
+        margin-bottom: 20px;
+      }
+      .popx-meta-field-inner label {
+          display: block;
+          margin-bottom: 5px;
+          font-size: 15px;
+          font-weight: 600;
+      }
+      .popx-field-type-switch label {
+        display: inline-block;
+        margin-right: 6px;
+      }
+      .popx-meta-field-inner .popx-input-field {
+        border: 1px solid #eee;
+        height: 40px;
+        min-width: 300px;
+      }
+      .popx-field-type-number .popx-input-field {
+        min-width: 80px;
+        width: 80px;
+      }
+    </style>
+    <?php
   }
 
 

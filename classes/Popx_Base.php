@@ -20,7 +20,10 @@ class Popx_Base {
   }
 
   public static function modal_base_html_inject() {
-    echo '<div class="popx-base-wrap">'.self::modal_html_one().'</div>';
+    echo '<div class="popx-base-wrap">';
+    self::modal_html_one();
+
+    echo '</div>';
   }
   
   public static function modal_html_one() {
