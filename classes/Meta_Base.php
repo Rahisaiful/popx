@@ -1,15 +1,16 @@
 <?php
-namespace Poper;
+namespace Popx;
  /**
   * 
-  * @package    Poper
+  * @package    Popx
   * @version    1.0.0
-  * @author     WPBucket
-  * @Websites: http://wpbucket.net
+  * @author     wpmobo
+  * @Websites: http://wpmobo.com
   *
   */
+ 
   if( ! defined( 'ABSPATH' ) ) {
-    die( POPER_ALERT_MSG );
+    die( POPX_ALERT_MSG );
   }
 
 class Meta_Base {
@@ -24,7 +25,7 @@ class Meta_Base {
    * 
    */
   public static function register_meta_boxes() {
-    add_meta_box( 'poper-popup-meta', esc_html__( 'Set Popup Options', 'poper' ), [__CLASS__, 'display_callback'], 'poper_modal' );
+    add_meta_box( 'popx-popup-meta', esc_html__( 'Set Popup Options', 'popx' ), [__CLASS__, 'display_callback'], 'popx_modal' );
   }
 
   /**
@@ -33,20 +34,20 @@ class Meta_Base {
    * @param WP_Post $post Current post object.
    */
   public static function display_callback( $post ) {
-    $position = get_post_meta( $post->ID, '_poper_popup_position', true );
-    $activePopup = get_post_meta( $post->ID, '_poper_active_popup', true );
+    $position = get_post_meta( $post->ID, '_popx_popup_position', true );
+    $activePopup = get_post_meta( $post->ID, '_popx_active_popup', true );
 
     ?>
-    <div class="poper-meta-field-group">
-      <div class="poper-meta-field-inner">
-        <label><?php esc_html_e( 'Active Popup', 'poper' ); ?></label>
+    <div class="popx-meta-field-group">
+      <div class="popx-meta-field-inner">
+        <label><?php esc_html_e( 'Active Popup', 'popx' ); ?></label>
         <input type="checkbox" value="yes" <?php checked( $activePopup, 'yes' ); ?> name="active_popup">
       </div>
     </div>
 
-    <div class="poper-meta-field-group">
-      <div class="poper-meta-field-inner">
-        <label><?php esc_html_e( 'Popup Position', 'poper' ); ?></label>
+    <div class="popx-meta-field-group">
+      <div class="popx-meta-field-inner">
+        <label><?php esc_html_e( 'Popup Position', 'popx' ); ?></label>
         <select name="popup_position">
           <option <?php selected( $position, 'top-right' ); ?> value="top-right">Top Right</option>
           <option <?php selected( $position, 'top-left' ); ?> value="top-left">Top Left</option>
@@ -57,9 +58,9 @@ class Meta_Base {
       </div>
     </div>
 
-    <div class="poper-meta-field-group">
-      <div class="poper-meta-field-inner">
-        <label><?php esc_html_e( 'Display Page Type', 'poper' ); ?></label>
+    <div class="popx-meta-field-group">
+      <div class="popx-meta-field-inner">
+        <label><?php esc_html_e( 'Display Page Type', 'popx' ); ?></label>
         <select name="display_page_type">
           <option <?php selected( $position, 'top-right' ); ?> value="entire-pages">Entire Pages</option>
           <option <?php selected( $position, 'top-right' ); ?> value="singular-archive">Singular and Archive Pages</option>
@@ -68,25 +69,25 @@ class Meta_Base {
       </div>
     </div>
 
-    <div class="poper-meta-field-group">
-      <div class="poper-meta-field-inner">
-        <label><?php esc_html_e( 'Pages', 'poper' ); ?></label>
+    <div class="popx-meta-field-group">
+      <div class="popx-meta-field-inner">
+        <label><?php esc_html_e( 'Pages', 'popx' ); ?></label>
         <select name="display_pages">
           <?php 
-          echo \Poper\Helper::getPagesSelectOption();
+          echo \Popx\Helper::getPagesSelectOption();
           ?>
         </select>
       </div>
     </div>
-    <div class="poper-meta-field-group">
-      <div class="poper-meta-field-inner">
-        <label><?php esc_html_e( 'Modal Width', 'poper' ); ?></label>
+    <div class="popx-meta-field-group">
+      <div class="popx-meta-field-inner">
+        <label><?php esc_html_e( 'Modal Width', 'popx' ); ?></label>
         <input type="text" value=""  name="modal_width">
       </div>
     </div>
-    <div class="poper-meta-field-group">
-      <div class="poper-meta-field-inner">
-        <label><?php esc_html_e( 'Modal Height', 'poper' ); ?></label>
+    <div class="popx-meta-field-group">
+      <div class="popx-meta-field-inner">
+        <label><?php esc_html_e( 'Modal Height', 'popx' ); ?></label>
         <input type="text" value="" name="modal_height">
       </div>
     </div>
@@ -104,8 +105,8 @@ class Meta_Base {
       if( isset( $_POST['active_popup'] ) ) {
         $activePopup = $_POST['active_popup'];
       }
-      update_post_meta( $post_id, '_poper_popup_position', sanitize_text_field( $position ) );
-      update_post_meta( $post_id, '_poper_active_popup', sanitize_text_field( $activePopup ) );
+      update_post_meta( $post_id, '_popx_popup_position', sanitize_text_field( $position ) );
+      update_post_meta( $post_id, '_popx_active_popup', sanitize_text_field( $activePopup ) );
   }
 
 

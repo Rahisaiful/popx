@@ -1,15 +1,16 @@
 <?php
-namespace Poper;
+namespace Popx;
  /**
   * 
-  * @package    Poper
+  * @package    Popx
   * @version    1.0.0
-  * @author     WPBucket
-  * @Websites: http://wpbucket.net
+  * @author     wpmobo
+  * @Websites: http://wpmobo.com
   *
   */
+ 
   if( ! defined( 'ABSPATH' ) ) {
-    die( POPER_ALERT_MSG );
+    die( POPX_ALERT_MSG );
   }
 
 class Post_Type_Base {
@@ -24,7 +25,7 @@ class Post_Type_Base {
 
     public function register_post_type() {
         // Custom Reviews post type
-        register_post_type( 'poper_modal',
+        register_post_type( 'popx_modal',
             array(
                 'labels' => array(
                 'name' => esc_html__( 'Modal', 'reviewbucket' ),
@@ -38,7 +39,7 @@ class Post_Type_Base {
                 'show_in_rest'       => true,
                 'has_archive' => true,
                 'show_in_menu' => true,
-                'rewrite' => array( 'slug' => 'poper-modal' ),
+                'rewrite' => array( 'slug' => 'popx-modal' ),
                 'supports' => array('title', 'editor')
             )
         );

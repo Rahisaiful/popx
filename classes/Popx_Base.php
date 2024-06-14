@@ -1,39 +1,40 @@
 <?php
-namespace Poper;
+namespace Popx;
  /**
   * 
-  * @package    Poper
+  * @package    Popx
   * @version    1.0.0
-  * @author     WPBucket
-  * @Websites: http://wpbucket.net
+  * @author     wpmobo
+  * @Websites: http://wpmobo.com
   *
   */
+ 
   if( ! defined( 'ABSPATH' ) ) {
-    die( POPER_ALERT_MSG );
+    die( POPX_ALERT_MSG );
   }
 
-class Poper_Base {
+class Popx_Base {
 
   function __construct() {
     add_action( 'wp_footer', [ __CLASS__, 'modal_base_html_inject' ] );
   }
 
   public static function modal_base_html_inject() {
-    echo '<div class="poper-base-wrap">'.self::modal_html_one().'</div>';
+    echo '<div class="popx-base-wrap">'.self::modal_html_one().'</div>';
   }
   
   public static function modal_html_one() {
     $args = [
-        'post_type' => 'poper_modal',
+        'post_type' => 'popx_modal',
         'posts_per_page' => '1'
       ];
 
     $popup = new \WP_Query( $args );
 
     ?>
-    <div class="poper-modal-wrap">
-      <div class="poper-modal-top-inner">
-        <div class="poper-modal-content-wrap vertical-position-center horizontal-position-center">
+    <div class="popx-modal-wrap">
+      <div class="popx-modal-top-inner">
+        <div class="popx-modal-content-wrap vertical-position-center horizontal-position-center">
           <?php
           if( $popup->have_posts() ) {
             while ( $popup->have_posts() ) {
@@ -51,7 +52,7 @@ class Poper_Base {
 
   public static function modal_html_two() {
     ?>
-    <div class="poper-modal-wrap vertical-position-top horizontal-position-right"></div>
+    <div class="popx-modal-wrap vertical-position-top horizontal-position-right"></div>
     <?php
   }
 
@@ -59,4 +60,4 @@ class Poper_Base {
 
 }
 
-new Poper_Base();
+new Popx_Base();
