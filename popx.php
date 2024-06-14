@@ -59,11 +59,21 @@ final class Popx {
 		//
 		add_filter( 'plugin_action_links', [ $this, 'add_plugin_link' ], 10, 2 );
 		add_filter( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+		add_action( 'wp_ajax_render_popx_popup', [__CLASS__, 'render_popx_popup' ] );
+        add_action( 'wp_ajax_nopriv_render_popx_popup', [ __CLASS__, 'render_popx_popup' ] );
 
 	}
 
+	public static function render_popx_popup() {
+
+        \Popx\Popx_Base::modal_html_one();
+
+        wp_die();
+    }
+
 	private function includeFiles() {		
 		require_once POPX_DIR_PATH . 'inc/Helper.php';
+		require_once POPX_DIR_PATH . 'inc/WP_Hooks.php';
 		require_once POPX_DIR_PATH . 'classes/Post_Type_Base.php';
 		require_once POPX_DIR_PATH . 'classes/Meta_Base.php';
 		require_once POPX_DIR_PATH . 'classes/Popx_Base.php';
@@ -71,6 +81,18 @@ final class Popx {
 	public function enqueue_scripts() {
 		wp_enqueue_style( 'popx-main', POPX_DIR_URL.'assets/css/main.css' );
 		wp_enqueue_script( 'popx-main', POPX_DIR_URL.'assets/js/main.js', ['jquery'], '1.0.0', true );
+
+		wp_localize_script(
+			'popx-main', 
+			'popxScript',
+			[
+
+				'ajaxUrl' => admin_url( 'admin-ajax.php' )
+			]
+
+		);
+
+
 	}
 
 	// Plugin page settings link add

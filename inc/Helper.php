@@ -16,7 +16,7 @@ namespace Popx;
 class Helper {
 
     private function __construct() {
-
+        
     }
 
     public static function getPagesSelectOption( $value = '' ) {
@@ -33,5 +33,7 @@ class Helper {
         return $html;
 
     }
+
+    
 
 }

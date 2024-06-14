@@ -36,6 +36,10 @@ class Meta_Base {
   public static function display_callback( $post ) {
     $position = get_post_meta( $post->ID, '_popx_popup_position', true );
     $activePopup = get_post_meta( $post->ID, '_popx_active_popup', true );
+    $bgOverly = get_post_meta( $post->ID, '_popx_popup_bg_overly', true );
+    $delayTime = get_post_meta( $post->ID, '_popx_popup_delay_time', true );
+    $width = get_post_meta( $post->ID, '_popx_popup_modal_width', true );
+    $height = get_post_meta( $post->ID, '_popx_popup_modal_height', true );
     self::meta_style();
     ?>
     <div class="popx-meta-field-group">
@@ -44,16 +48,15 @@ class Meta_Base {
         <input type="checkbox" value="yes" <?php checked( $activePopup, 'yes' ); ?> name="active_popup">
       </div>
     </div>
-
     <div class="popx-meta-field-group">
       <div class="popx-meta-field-inner">
         <label><?php esc_html_e( 'Popup Position', 'popx' ); ?></label>
         <select class="popx-input-field" name="popup_position">
-          <option <?php selected( $position, 'top-right' ); ?> value="top-right">Top Right</option>
-          <option <?php selected( $position, 'top-left' ); ?> value="top-left">Top Left</option>
+          <option <?php selected( $position, 'top-right' ); ?> value="right-top">Top Right</option>
+          <option <?php selected( $position, 'top-left' ); ?> value="left-top">Top Left</option>
           <option <?php selected( $position, 'center' ); ?> value="center">Center</option>
-          <option <?php selected( $position, 'bottom-right' ); ?> value="bottom-right">Bottom Right</option>
-          <option <?php selected( $position, 'bottom-left' ); ?> value="bottom-left">Bottom Left </option>
+          <option <?php selected( $position, 'bottom-right' ); ?> value="right-bottom">Bottom Right</option>
+          <option <?php selected( $position, 'bottom-left' ); ?> value="left-bottom">Bottom Left </option>
         </select>
       </div>
     </div>
@@ -80,15 +83,27 @@ class Meta_Base {
       </div>
     </div>
     <div class="popx-meta-field-group">
+      <div class="popx-meta-field-inner popx-field-type-switch">
+        <label><?php esc_html_e( 'Background Overly', 'popx' ); ?></label>
+        <input type="checkbox" value="yes" <?php checked( $bgOverly, 'yes' ); ?> name="active_bg_overly">
+      </div>
+    </div>
+    <div class="popx-meta-field-group">
       <div class="popx-meta-field-inner popx-field-type-number">
         <label><?php esc_html_e( 'Modal Width', 'popx' ); ?></label>
-        <input type="number" class="popx-input-field" value=""  name="modal_width">
+        <input type="number" class="popx-input-field" value="<?php echo esc_attr( $width ); ?>"  name="modal_width">
       </div>
     </div>
     <div class="popx-meta-field-group">
       <div class="popx-meta-field-inner popx-field-type-number">
         <label><?php esc_html_e( 'Modal Height', 'popx' ); ?></label>
-        <input type="number" class="popx-input-field" value="" name="modal_height">
+        <input type="number" class="popx-input-field" value="<?php echo esc_attr( $height ); ?>" name="modal_height">
+      </div>
+    </div>
+    <div class="popx-meta-field-group">
+      <div class="popx-meta-field-inner popx-field-type-number">
+        <label><?php esc_html_e( 'Modal Show Delay Time', 'popx' ); ?></label>
+        <input type="number" class="popx-input-field" value="<?php echo esc_attr( $delayTime ); ?>" name="delay_time">
       </div>
     </div>
     <?php
@@ -105,8 +120,35 @@ class Meta_Base {
       if( isset( $_POST['active_popup'] ) ) {
         $activePopup = $_POST['active_popup'];
       }
+      //
+      $bgOverly = '';
+      if( isset( $_POST['active_bg_overly'] ) ) {
+        $bgOverly = $_POST['active_bg_overly'];
+      }
+
+      //
+      $delayTime = '';
+      if( isset( $_POST['delay_time'] ) ) {
+        $delayTime = $_POST['delay_time'];
+      }
+      //
+      $width = '';
+      if( isset( $_POST['modal_width'] ) ) {
+        $width = $_POST['modal_width'];
+      }
+      //
+      $height = '';
+      if( isset( $_POST['modal_height'] ) ) {
+        $height = $_POST['modal_height'];
+      }
+
       update_post_meta( $post_id, '_popx_popup_position', sanitize_text_field( $position ) );
       update_post_meta( $post_id, '_popx_active_popup', sanitize_text_field( $activePopup ) );
+      update_post_meta( $post_id, '_popx_popup_bg_overly', sanitize_text_field( $bgOverly ) );
+      update_post_meta( $post_id, '_popx_popup_delay_time', sanitize_text_field( $delayTime ) );
+
+      update_post_meta( $post_id, '_popx_popup_modal_width', sanitize_text_field( $width ) );
+      update_post_meta( $post_id, '_popx_popup_modal_height', sanitize_text_field( $height ) );
   }
 
   public static function meta_style() {
