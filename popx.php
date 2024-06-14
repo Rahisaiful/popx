@@ -56,39 +56,21 @@ final class Popx {
 
 	public function init() {
 		
-		//if( Popx\Inc\License::licenseActive() ){
 		//
 		add_filter( 'plugin_action_links', [ $this, 'add_plugin_link' ], 10, 2 );
 		add_filter( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 
-		//}
-
 	}
 
-	private function includeFiles() {
-
-		// Script enqueue class include
-		//require_once POPX_DIR_PATH . 'inc/class-enqueue.php';
-		
-		// Admin file include 
-		//require_once POPX_DIR_PATH . 'inc/License.php';
-		//require_once POPX_DIR_PATH . 'admin/admin-functions.php';
-		//require_once POPX_DIR_PATH . 'admin/admin.php';
-
-
-		//if( Popx\Inc\License::licenseActive() ){
-		
-
-		//}
-		
+	private function includeFiles() {		
 		require_once POPX_DIR_PATH . 'inc/Helper.php';
 		require_once POPX_DIR_PATH . 'classes/Post_Type_Base.php';
 		require_once POPX_DIR_PATH . 'classes/Meta_Base.php';
 		require_once POPX_DIR_PATH . 'classes/Popx_Base.php';
-
 	}
 	public function enqueue_scripts() {
 		wp_enqueue_style( 'popx-main', POPX_DIR_URL.'assets/css/main.css' );
+		wp_enqueue_script( 'popx-main', POPX_DIR_URL.'assets/js/main.js', ['jquery'], '1.0.0', true );
 	}
 
 	// Plugin page settings link add

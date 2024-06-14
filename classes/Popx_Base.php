@@ -32,9 +32,10 @@ class Popx_Base {
     $popup = new \WP_Query( $args );
 
     ?>
-    <div class="popx-modal-wrap">
+    <div class="popx-modal-wrap popx-modal-open">
       <div class="popx-modal-top-inner">
-        <div class="popx-modal-content-wrap vertical-position-center horizontal-position-center">
+        <div class="popx-modal-close">X</div>
+        <div class="popx-modal-content-wrap">
           <?php
           if( $popup->have_posts() ) {
             while ( $popup->have_posts() ) {
