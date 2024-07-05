@@ -66,7 +66,15 @@ final class Popx {
 
 	public static function render_popx_popup() {
 
-        \Popx\Popx_Base::modal_html_one();
+		$pages = [
+			'page_id' => !empty( $_POST['page_id'] ) ? $_POST['page_id'] : '',
+			'is_shop' => !empty( $_POST['is_shop'] ) ? $_POST['is_shop'] : '',
+			'is_front_page' => !empty( $_POST['is_front_page'] ) ? $_POST['is_front_page'] : '',
+			'is_home' => !empty( $_POST['is_home'] ) ? $_POST['is_home'] : '',
+			'is_single_archive' => !empty( $_POST['is_single_archive'] ) ? $_POST['is_single_archive'] : ''
+		];
+
+        \Popx\Popx_Base::modal_html_one( $pages );
 
         wp_die();
     }
@@ -87,7 +95,12 @@ final class Popx {
 			'popxScript',
 			[
 
-				'ajaxUrl' => admin_url( 'admin-ajax.php' )
+				'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+				'pageid' => !is_front_page() && !is_home() && is_page() ? get_the_ID() : '',
+				'is_front_page' => is_front_page(),
+				'is_home' => is_home(),
+				'is_shop' => is_shop(),
+				'is_single_archive' => is_single() || is_archive()
 			]
 
 		);

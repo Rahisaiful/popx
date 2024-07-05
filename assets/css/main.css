@@ -83,3 +83,7 @@
     left: 50%;
     position: fixed;
 }
+.popx-modal-show {
+	visibility: visible;
+	opacity: 1;
+}

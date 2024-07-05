@@ -121,6 +121,11 @@ class Meta_Base {
         $activePopup = $_POST['active_popup'];
       }
       //
+      $pageType = '';
+      if( isset( $_POST['display_page_type'] ) ) {
+        $pageType = $_POST['display_page_type'];
+      }
+      //
       $bgOverly = '';
       if( isset( $_POST['active_bg_overly'] ) ) {
         $bgOverly = $_POST['active_bg_overly'];
@@ -130,6 +135,12 @@ class Meta_Base {
       $delayTime = '';
       if( isset( $_POST['delay_time'] ) ) {
         $delayTime = $_POST['delay_time'];
+      }
+
+      //
+      $displayPages = '';
+      if( isset( $_POST['display_pages'] ) ) {
+        $displayPages = $_POST['display_pages'];
       }
       //
       $width = '';
@@ -146,6 +157,9 @@ class Meta_Base {
       update_post_meta( $post_id, '_popx_active_popup', sanitize_text_field( $activePopup ) );
       update_post_meta( $post_id, '_popx_popup_bg_overly', sanitize_text_field( $bgOverly ) );
       update_post_meta( $post_id, '_popx_popup_delay_time', sanitize_text_field( $delayTime ) );
+      update_post_meta( $post_id, '_popx_display_page_type', sanitize_text_field( $pageType ) );
+
+      update_post_meta( $post_id, '_popx_display_pages', sanitize_text_field( $displayPages ) );
 
       update_post_meta( $post_id, '_popx_popup_modal_width', sanitize_text_field( $width ) );
       update_post_meta( $post_id, '_popx_popup_modal_height', sanitize_text_field( $height ) );
