@@ -15,9 +15,15 @@ namespace Popx;
 
 class Meta_Base {
 
+  public static $getFields;
+
   function __construct() {
     add_action( 'add_meta_boxes', [ __CLASS__, 'register_meta_boxes' ] );
     add_action( 'save_post', [ __CLASS__, 'save_meta_data' ] );
+
+    self::$getFields = new \Popx\Core\Fields\Fields_Maping();
+
+    self::$getFields->scripts();
   }
 
   /**
@@ -40,14 +46,60 @@ class Meta_Base {
     $delayTime = get_post_meta( $post->ID, '_popx_popup_delay_time', true );
     $width = get_post_meta( $post->ID, '_popx_popup_modal_width', true );
     $height = get_post_meta( $post->ID, '_popx_popup_modal_height', true );
+    $wrapBorder = get_post_meta( $post->ID, '_popx_popup_wrap_border', true );
+    $wrapBgColor = get_post_meta( $post->ID, '_popx_popup_wrap_bg_color', true );
+    $wrapBoxShadow = get_post_meta( $post->ID, '_popx_popup_wrap_box_shadow', true );
+    $wrapBorderRadius = get_post_meta( $post->ID, '_popx_popup_wrap_border_radius', true );
+
+
     self::meta_style();
+
+    // Fields 
+    $getFields = self::$getFields;
+
+
+
+    $getFields->border_field(
+      [
+        'title' => 'Wrapper Border',
+        'name' => 'popup_wrap_border',
+        'value' => $wrapBorder
+      ]
+    );
+
+    $getFields->border_radius_field(
+      [
+        'title' => 'Wrapper Border Radius',
+        'name' => 'popup_wrap_border_radius',
+        'value' => $wrapBorderRadius
+      ]
+    );
+
+    $getFields->box_shadow_field(
+      [
+        'title' => 'Wrapper Box Shadow',
+        'name' => 'popup_wrap_box_shadow',
+        'value' => $wrapBoxShadow
+      ]
+    );
+
+    $getFields->color_field(
+      [
+        'title' => 'Wrapper Background',
+        'name' => 'popup_wrap_bg_color',
+        'value' => $wrapBgColor
+      ]
+    );
+
     ?>
+
     <div class="popx-meta-field-group">
       <div class="popx-meta-field-inner popx-field-type-switch">
         <label><?php esc_html_e( 'Active Popup', 'popx' ); ?></label>
         <input type="checkbox" value="yes" <?php checked( $activePopup, 'yes' ); ?> name="active_popup">
       </div>
     </div>
+
     <div class="popx-meta-field-group">
       <div class="popx-meta-field-inner">
         <label><?php esc_html_e( 'Popup Position', 'popx' ); ?></label>
@@ -152,6 +204,26 @@ class Meta_Base {
       if( isset( $_POST['modal_height'] ) ) {
         $height = $_POST['modal_height'];
       }
+      //
+      $bgColor = '';
+      if( isset( $_POST['popup_wrap_bg_color'] ) ) {
+        $bgColor = $_POST['popup_wrap_bg_color'];
+      }
+      //
+      $wrapBorder = [];
+      if( isset( $_POST['popup_wrap_border'] ) ) {
+        $wrapBorder = $_POST['popup_wrap_border'];
+      }
+      //
+      $wrapBoxShadow = [];
+      if( isset( $_POST['popup_wrap_box_shadow'] ) ) {
+        $wrapBoxShadow = $_POST['popup_wrap_box_shadow'];
+      }
+      //
+      $wrapBorderRadius = [];
+      if( isset( $_POST['popup_wrap_border_radius'] ) ) {
+        $wrapBorderRadius = $_POST['popup_wrap_border_radius'];
+      }
 
       update_post_meta( $post_id, '_popx_popup_position', sanitize_text_field( $position ) );
       update_post_meta( $post_id, '_popx_active_popup', sanitize_text_field( $activePopup ) );
@@ -163,6 +235,11 @@ class Meta_Base {
 
       update_post_meta( $post_id, '_popx_popup_modal_width', sanitize_text_field( $width ) );
       update_post_meta( $post_id, '_popx_popup_modal_height', sanitize_text_field( $height ) );
+
+      update_post_meta( $post_id, '_popx_popup_wrap_bg_color', sanitize_text_field( $bgColor ) );
+      update_post_meta( $post_id, '_popx_popup_wrap_border', array_map( 'sanitize_text_field', $wrapBorder ) );
+      update_post_meta( $post_id, '_popx_popup_wrap_box_shadow', array_map( 'sanitize_text_field', $wrapBoxShadow ) );
+      update_post_meta( $post_id, '_popx_popup_wrap_border_radius', array_map( 'sanitize_text_field', $wrapBorderRadius ) );
   }
 
   public static function meta_style() {

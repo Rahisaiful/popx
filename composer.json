@@ -1,0 +1,15 @@
+{
+	"config": {
+    	"optimize-autoloader": true
+	},
+	"require": {},
+	"autoload": {
+		"psr-4": {
+			"Popx\\Core\\Fields\\" : "./core/fields"
+		},
+		"classmap": [
+			"core/fields/"
+		]
+
+	}
+}

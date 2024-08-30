@@ -36,6 +36,7 @@ if( !defined( 'POPX_DIR_URL' ) )
 if( !defined( 'POPX_BASENAME' ) )
 	define( 'POPX_BASENAME', plugin_basename( __FILE__ ) );
 
+require_once POPX_DIR_PATH.'vendor/autoload.php';
 
 final class Popx {
 

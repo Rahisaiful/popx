@@ -47,15 +47,7 @@ class Popx_Base {
       ];
     }
 
-
-
     $popup = new \WP_Query( $args );
-
-
-  
-    //is_home is_front_page is_shop 
-
-
 
     if( $popup->have_posts() ) {
       while ( $popup->have_posts() ) {
@@ -63,11 +55,17 @@ class Popx_Base {
 
       $itemId = get_the_ID();
 
+      //
+      $wrapBorder = get_post_meta( $itemId, '_popx_popup_wrap_border', true );
+      $wrapBg = get_post_meta( $itemId, '_popx_popup_wrap_bg_color', true );
+      $wrapBorderRadius = get_post_meta( $itemId, '_popx_popup_wrap_border_radius', true );
+      $wrapBoxShadow = get_post_meta( $itemId, '_popx_popup_wrap_box_shadow', true );
+
       $position = get_post_meta( $itemId, '_popx_popup_position', true );
       $isOverly = get_post_meta( $itemId, '_popx_popup_bg_overly', true ) ? 'popx-modal-bg-overly' : '';
-      
       $displayPageType = get_post_meta( $itemId, '_popx_display_page_type', true );
 
+      //
       $activate = '';
 
       if( $displayPageType == 'specific-pages' ) {
@@ -82,13 +80,37 @@ class Popx_Base {
         $activate = 'popx-modal-activate';
       }
       
-      
+      // Style
+
+      $customStyle = '';
+
+      // Wrap bg style
+      if( !empty( $wrapBg ) ) {
+        $customStyle .= 'background-color:'.esc_attr( $wrapBg ).';';
+      }
+      // Wrap border color
+      if( !empty( $wrapBorder['width'] ) && !empty( $wrapBorder['style'] ) ) {
+        $customStyle .= 'border:'.$wrapBorder['width'].'px '.$wrapBorder['style'].' '.$wrapBorder['color'].';';
+      }
+
+      // Wrap border radius
+      if( !empty( $wrapBorderRadius ) ) {
+
+        $customStyle .= 'border-radius:'.$wrapBorderRadius['top_left'].'px '.$wrapBorderRadius['top_right'].'px '.$wrapBorderRadius['bottom_right'].'px '.$wrapBorderRadius['bottom_left'].'px ;';
+      }
+
+      // Wrap Box Shadow
+      if( !empty( $wrapBoxShadow ) ) {
+
+        $customStyle .= 'box-shadow:'.$wrapBoxShadow['horizontal'].'px '.$wrapBoxShadow['vertical'].'px '.$wrapBoxShadow['blur'].'px '.$wrapBoxShadow['spread'] .'px '.$wrapBoxShadow['color'].';';
+      }
+
 
     ?>
     <div class="popx-modal-wrap <?php echo esc_attr( $activate ); ?> popx-position-<?php echo esc_attr( $position ?? 'center' ).' '.esc_attr($isOverly); ?>" data-delay-time="<?php echo esc_attr( get_post_meta( $itemId, '_popx_popup_delay_time', true ) ); ?>" data-popx-id="<?php echo absint( $itemId ); ?>">
       <div class="popx-modal-top-inner">
         <div class="popx-modal-close">X</div>
-        <div class="popx-modal-content-wrap">
+        <div class="popx-modal-content-wrap" style="<?php echo esc_attr( $customStyle ); ?>">
           <?php the_content(); ?>
         </div>
       </div>
@@ -98,7 +120,6 @@ class Popx_Base {
       }
       wp_reset_query();
 
-      //self::scripts();
     }
 
 
@@ -109,48 +130,6 @@ class Popx_Base {
     <div class="popx-modal-wrap vertical-position-top horizontal-position-right"></div>
     <?php
   }
-
-  public static function scripts() {
-    ?>
-    <script>
-      (function($) {
-
-        $(function() {
-
-          $('.popx-modal-activate').each( function() {
-
-            let $t = $(this),
-                $delayTime = $t.data('delay-time');
-                $popxId = $t.data('popx-id');
-
-               // localStorage.getItem();
-
-              setTimeout( function() {
-
-                $t.addClass('popx-modal-show');
-
-              }, $delayTime);
-
-
-          } )
-
-          // Close Modal
-
-          $('.popx-modal-close').on( 'click', function() {
-
-            $(this).closest('.popx-modal-activate').removeClass('popx-modal-show');
-
-          } )
-
-
-        })
-
-      })(jQuery);
-    </script>
-    <?php
-  }
-
-
 
 
 }
