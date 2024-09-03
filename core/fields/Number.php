@@ -17,7 +17,8 @@ trait Number {
             'title' => '',
             'name' => '',
             'placeholder' => '',
-            'condition'   => ''
+            'condition'   => '',
+            'value'       => ''
         ];
 
         $args = wp_parse_args( $args, $default );
@@ -25,15 +26,13 @@ trait Number {
     }
 
     public function number_markup( $args ) {
-        $fieldName = 'admintosh_options['.esc_attr( $args['name'] ).']';
-        $opt = get_option('admintosh_options');
-        $value = !empty( $opt[$args['name']] ) ? $opt[$args['name']] : '';
-        $condition = !empty( $args['condition'] ) ? 'data-condition='.json_encode( $args['condition'] ) : '';
+        $fieldName = $args['name'];
+        $condition = !empty( $args['condition'] ) ? 'data-condition='.wp_json_encode( $args['condition'] ) : '';
         ?>
-        <div class="admintosh-label admintosh-field-wrp" <?php echo esc_attr( $condition ); ?>>
-            <h5><?php echo esc_html( $args['title'] ); ?></h5>
+        <div class="popx-label popx-field-wrp" <?php echo esc_attr( $condition ); ?>>
+            <h3><?php echo esc_html( $args['title'] ); ?></h3>
             <div class="input-field-block">
-            <input class="number-field" type="number" placeholder="<?php echo esc_html( $args['placeholder'] ); ?>" name="<?php echo esc_attr( $fieldName ); ?>" value="<?php echo esc_html( $value ); ?>"/>
+            <input class="number-field" type="number" placeholder="<?php echo esc_html( $args['placeholder'] ); ?>" name="<?php echo esc_attr( $fieldName ); ?>" value="<?php echo esc_html( $args['value'] ?? '' ); ?>"/>
                 <?php 
                 if( !empty( $args['description'] ) ) {
                     echo '<p>'.wp_kses_post( $args['description'] ).'</p>';

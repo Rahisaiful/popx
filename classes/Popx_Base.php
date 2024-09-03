@@ -16,14 +16,14 @@ namespace Popx;
 class Popx_Base {
 
 
-  public static function modal_html_one( $pages ) {
+  public static function popup_html_one( $pages ) {
     $args = [
-        'post_type' => 'popx_modal',
+        'post_type' => 'popx_popup',
         'posts_per_page' => '-1',
         'meta_query' => [
           array(
             'key' => '_popx_active_popup',
-            'value' => 'yes',
+            'value' => 'on',
             'compare' => 'IN',
           )
         ]
@@ -62,7 +62,7 @@ class Popx_Base {
       $wrapBoxShadow = get_post_meta( $itemId, '_popx_popup_wrap_box_shadow', true );
 
       $position = get_post_meta( $itemId, '_popx_popup_position', true );
-      $isOverly = get_post_meta( $itemId, '_popx_popup_bg_overly', true ) ? 'popx-modal-bg-overly' : '';
+      $isOverly = get_post_meta( $itemId, '_popx_popup_bg_overly', true ) ? 'popx-popup-bg-overly' : '';
       $displayPageType = get_post_meta( $itemId, '_popx_display_page_type', true );
 
       //
@@ -72,12 +72,12 @@ class Popx_Base {
          $displayPages = get_post_meta( $itemId, '_popx_display_pages', true );
 
         if( $pages['page_id'] == $displayPages ) {
-          $activate = 'popx-modal-activate';
+          $activate = 'popx-popup-activate';
         }
       }
       
       if( $displayPageType == 'entire-pages' || $displayPageType == 'singular-archive'  ) {
-        $activate = 'popx-modal-activate';
+        $activate = 'popx-popup-activate';
       }
       
       // Style
@@ -107,10 +107,10 @@ class Popx_Base {
 
 
     ?>
-    <div class="popx-modal-wrap <?php echo esc_attr( $activate ); ?> popx-position-<?php echo esc_attr( $position ?? 'center' ).' '.esc_attr($isOverly); ?>" data-delay-time="<?php echo esc_attr( get_post_meta( $itemId, '_popx_popup_delay_time', true ) ); ?>" data-popx-id="<?php echo absint( $itemId ); ?>">
-      <div class="popx-modal-top-inner">
-        <div class="popx-modal-close">X</div>
-        <div class="popx-modal-content-wrap" style="<?php echo esc_attr( $customStyle ); ?>">
+    <div class="popx-popup-wrap <?php echo esc_attr( $activate ); ?> popx-position-<?php echo esc_attr( $position ?? 'center' ).' '.esc_attr($isOverly); ?>" data-delay-time="<?php echo esc_attr( get_post_meta( $itemId, '_popx_popup_delay_time', true ) ); ?>" data-popx-id="<?php echo absint( $itemId ); ?>">
+      <div class="popx-popup-top-inner">
+        <div class="popx-popup-close">X</div>
+        <div class="popx-popup-content-wrap" style="<?php echo esc_attr( $customStyle ); ?>">
           <?php the_content(); ?>
         </div>
       </div>
@@ -125,9 +125,9 @@ class Popx_Base {
 
   }
 
-  public static function modal_html_two() {
+  public static function popup_html_two() {
     ?>
-    <div class="popx-modal-wrap vertical-position-top horizontal-position-right"></div>
+    <div class="popx-popup-wrap vertical-position-top horizontal-position-right"></div>
     <?php
   }
 

@@ -25,7 +25,7 @@ trait Heading {
 
     public function heading_markup( $args ) {
         ?>
-        <div class="admintosh-label admintosh-field-wrp block-heading">
+        <div class="popx-label popx-field-wrp block-heading">
             <h3><?php echo esc_html( $args['title'] ); ?></h3>
         </div>
         <?php

@@ -31,8 +31,7 @@ trait Border {
         $value = $args['value'];
 
         $fieldName = esc_attr( $name );
-        $condition = !empty( $args['condition'] ) ? 'data-condition='.json_encode( $args['condition'] ) : '';
-        $opt = get_option('admintosh_options');
+        $condition = !empty( $args['condition'] ) ? 'data-condition='.wp_json_encode( $args['condition'] ) : '';
 
         $width    = !empty( $value['width'] ) ? $value['width'] : '';
         $style    = !empty( $value['style'] ) ? $value['style'] : '';
@@ -48,7 +47,7 @@ trait Border {
         ];
         ?>
         <div class="popx-label popx-field-wrp" <?php echo esc_attr( $condition ); ?>>
-            <h5><?php echo esc_html( $args['title'] ); ?></h5>
+            <h3><?php echo esc_html( $args['title'] ); ?></h3>
             <div class="border-input-group">
                 <div class="border-field-wrap">
                     <input type="number" class="border-number-field" placeholder="px" name="<?php echo esc_attr( $fieldName ); ?>[width]" value="<?php echo esc_html( $width ); ?>"/>

@@ -28,7 +28,7 @@ trait Border_Radius {
     public function border_radius_markup( $args ) {
 
         $fieldName = $args['name'];
-        $condition = !empty( $args['condition'] ) ? 'data-condition='.json_encode( $args['condition'] ) : '';
+        $condition = !empty( $args['condition'] ) ? 'data-condition='.wp_json_encode( $args['condition'] ) : '';
         $value = $args['value'];
         
 
@@ -37,8 +37,8 @@ trait Border_Radius {
         $bottomLeft = !empty( $value['bottom_left'] ) ? $value['bottom_left'] : '';
         $bottomRight   = !empty( $value['bottom_right'] ) ? $value['bottom_right'] : '';
         ?>
-        <div class="admintosh-label admintosh-field-wrp" <?php echo esc_attr( $condition ); ?>>
-            <h5><?php echo esc_html( $args['title'] ); ?></h5>
+        <div class="popx-label popx-field-wrp" <?php echo esc_attr( $condition ); ?>>
+            <h3><?php echo esc_html( $args['title'] ); ?></h3>
             <div class="dimension-input-group">
                 <div class="dimension-field-wrap">
                 <span><?php esc_html_e( 'Top Left', 'popx' ); ?></span>

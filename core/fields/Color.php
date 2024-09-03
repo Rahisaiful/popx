@@ -27,10 +27,10 @@ trait Color {
 
     public function color_markup( $args ) {
         $fieldName = esc_attr( $args['name'] );
-        $condition = !empty( $args['condition'] ) ? 'data-condition='.json_encode( $args['condition'] ) : '';
+        $condition = !empty( $args['condition'] ) ? 'data-condition='.wp_json_encode( $args['condition'] ) : '';
         ?>
-        <div class="admintosh-label admintosh-field-wrp" <?php echo esc_attr( $condition ); ?>>
-            <h5><?php echo esc_html( $args['title'] ); ?></h5>
+        <div class="popx-label popx-field-wrp" <?php echo esc_attr( $condition ); ?>>
+            <h3><?php echo esc_html( $args['title'] ); ?></h3>
             <input type="text" id="bg_color" class="color-field" data-alpha-enabled="true" data-alpha-color-type="rgb" placeholder="<?php echo esc_html( $args['placeholder'] ); ?>" value="<?php echo esc_html( $args['value'] ); ?>" name="<?php echo esc_attr( $fieldName ); ?>" />
         </div>
         <?php

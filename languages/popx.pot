@@ -1,0 +1,204 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PopX\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-09-03 21:32+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.6.11; wp-6.6.1\n"
+"X-Domain: popx"
+
+#: popx.php:124
+#, php-format
+msgid "%sSettings%s"
+msgstr ""
+
+#: classes/Meta_Base.php:77
+msgid "Active Popup"
+msgstr ""
+
+#: classes/Post_Type_Base.php:33 classes/Post_Type_Base.php:34
+msgid "Add New Popup"
+msgstr ""
+
+#: classes/Meta_Base.php:180
+msgid "Background Overly"
+msgstr ""
+
+#: core/fields/Box_Shadow.php:54
+msgid "Blur Radius"
+msgstr ""
+
+#: classes/Meta_Base.php:92 core/fields/Border_Radius.php:52
+msgid "Bottom Left"
+msgstr ""
+
+#: classes/Meta_Base.php:91 core/fields/Border_Radius.php:56
+msgid "Bottom Right"
+msgstr ""
+
+#: classes/Meta_Base.php:90
+msgid "Center"
+msgstr ""
+
+#: core/fields/Box_Shadow.php:62
+msgid "Color"
+msgstr ""
+
+#: core/fields/Border.php:44
+msgid "Dashed"
+msgstr ""
+
+#: classes/Meta_Base.php:99
+msgid "Display Page Type"
+msgstr ""
+
+#: core/fields/Border.php:43
+msgid "Dotted"
+msgstr ""
+
+#: core/fields/Border.php:45
+msgid "Double"
+msgstr ""
+
+#: classes/Post_Type_Base.php:35
+msgid "Edit Popup"
+msgstr ""
+
+#: classes/Meta_Base.php:103
+msgid "Entire Pages"
+msgstr ""
+
+#: core/fields/Border.php:46
+msgid "Groove"
+msgstr ""
+
+#: core/fields/Box_Shadow.php:46
+msgid "Horizontal Length"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://wpmobo.com/"
+msgstr ""
+
+#. URI of the plugin
+msgid "https://wpmobo.com/popx"
+msgstr ""
+
+#: core/fields/Border.php:41
+msgid "None"
+msgstr ""
+
+#: classes/Meta_Base.php:112
+msgid "Pages"
+msgstr ""
+
+#: classes/Post_Type_Base.php:32
+msgid "Popup"
+msgstr ""
+
+#: classes/Meta_Base.php:130
+msgid "Popup Height"
+msgstr ""
+
+#: classes/Meta_Base.php:84
+msgid "Popup Position"
+msgstr ""
+
+#: classes/Meta_Base.php:138
+msgid "Popup Show Delay Time"
+msgstr ""
+
+#: classes/Meta_Base.php:121
+msgid "Popup Width"
+msgstr ""
+
+#. Name of the plugin
+msgid "PopX"
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"PopX is a versatile WordPress popup builder, allowing users to create and "
+"customize engaging popups effortlessly."
+msgstr ""
+
+#: classes/Post_Type_Base.php:31
+msgid "PopX Popup"
+msgstr ""
+
+#: classes/Meta_Base.php:34
+msgid "Set Popup Options"
+msgstr ""
+
+#: classes/Meta_Base.php:66
+msgid "Settings"
+msgstr ""
+
+#: classes/Meta_Base.php:104
+msgid "Singular and Archive Pages"
+msgstr ""
+
+#: core/fields/Border.php:42
+msgid "Solid"
+msgstr ""
+
+#: classes/Meta_Base.php:105
+msgid "Specific Pages"
+msgstr ""
+
+#: core/fields/Box_Shadow.php:58
+msgid "Spread Radius"
+msgstr ""
+
+#: classes/Meta_Base.php:67
+msgid "Style"
+msgstr ""
+
+#: classes/Meta_Base.php:89 core/fields/Border_Radius.php:44
+msgid "Top Left"
+msgstr ""
+
+#: classes/Meta_Base.php:88 core/fields/Border_Radius.php:48
+msgid "Top Right"
+msgstr ""
+
+#: core/fields/Media.php:42
+msgid "Upload"
+msgstr ""
+
+#: core/fields/Box_Shadow.php:50
+msgid "Vertical Length"
+msgstr ""
+
+#. Author of the plugin
+msgid "WPMobo"
+msgstr ""
+
+#: classes/Meta_Base.php:173
+msgid "Wrapper Background"
+msgstr ""
+
+#: classes/Meta_Base.php:149
+msgid "Wrapper Border"
+msgstr ""
+
+#: classes/Meta_Base.php:157
+msgid "Wrapper Border Radius"
+msgstr ""
+
+#: classes/Meta_Base.php:165
+msgid "Wrapper Box Shadow"
+msgstr ""
+
+#: popx.php:25
+msgid "You should not access this file directly.!"
+msgstr ""

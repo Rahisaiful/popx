@@ -18,7 +18,8 @@ trait Select {
             'name' => '',
             'placeholder' => '',
             'options' => [],
-            'condition'   => ''
+            'condition' => '',
+            'value'     => ''
         ];
 
         $args = wp_parse_args( $args, $default );
@@ -26,13 +27,12 @@ trait Select {
     }
 
     public function select_markup( $args ) {
-        $fieldName = 'admintosh_options['.esc_attr( $args['name'] ).']';
-        $opt = get_option('admintosh_options');
-        $value = !empty( $opt[$args['name']] ) ? $opt[$args['name']] : '';
-        $condition = !empty( $args['condition'] ) ? 'data-condition='.json_encode( $args['condition'] ) : '';
+        $fieldName = $args['name'];
+        $value = !empty( $args['value'] ) ? $args['value'] : '';
+        $condition = !empty( $args['condition'] ) ? 'data-condition='.wp_json_encode( $args['condition'] ) : '';
         ?>
-        <div class="admintosh-label admintosh-field-wrp" <?php echo esc_attr( $condition ); ?>>
-            <h5><?php echo esc_html( $args['title'] ); ?></h5>
+        <div class="popx-label popx-field-wrp" <?php echo esc_attr( $condition ); ?>>
+            <h3><?php echo esc_html( $args['title'] ); ?></h3>
             
             <select class="input-control" name="<?php echo esc_attr( $fieldName ); ?>">
                 <?php 

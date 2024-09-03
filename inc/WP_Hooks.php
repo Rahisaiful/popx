@@ -16,10 +16,10 @@ namespace Popx;
 class WP_Hooks {
 
     function __construct() {
-        add_action( 'wp_footer', [ __CLASS__, 'modal_base_html_inject' ] );
+        add_action( 'wp_footer', [ __CLASS__, 'popup_base_html_inject' ] );
     }
 
-    public static function modal_base_html_inject() {
+    public static function popup_base_html_inject() {
         echo '<div class="popx-base-wrap"></div>';
     }
 

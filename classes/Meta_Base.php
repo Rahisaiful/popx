@@ -31,7 +31,7 @@ class Meta_Base {
    * 
    */
   public static function register_meta_boxes() {
-    add_meta_box( 'popx-popup-meta', esc_html__( 'Set Popup Options', 'popx' ), [__CLASS__, 'display_callback'], 'popx_modal' );
+    add_meta_box( 'popx-popup-meta', esc_html__( 'Set Popup Options', 'popx' ), [__CLASS__, 'display_callback'], 'popx_popup' );
   }
 
   /**
@@ -44,202 +44,173 @@ class Meta_Base {
     $activePopup = get_post_meta( $post->ID, '_popx_active_popup', true );
     $bgOverly = get_post_meta( $post->ID, '_popx_popup_bg_overly', true );
     $delayTime = get_post_meta( $post->ID, '_popx_popup_delay_time', true );
-    $width = get_post_meta( $post->ID, '_popx_popup_modal_width', true );
-    $height = get_post_meta( $post->ID, '_popx_popup_modal_height', true );
+    $width = get_post_meta( $post->ID, '_popx_popup_popup_width', true );
+    $height = get_post_meta( $post->ID, '_popx_popup_popup_height', true );
     $wrapBorder = get_post_meta( $post->ID, '_popx_popup_wrap_border', true );
     $wrapBgColor = get_post_meta( $post->ID, '_popx_popup_wrap_bg_color', true );
     $wrapBoxShadow = get_post_meta( $post->ID, '_popx_popup_wrap_box_shadow', true );
     $wrapBorderRadius = get_post_meta( $post->ID, '_popx_popup_wrap_border_radius', true );
-
+    $displayPageType = get_post_meta( $post->ID, '_popx_display_page_type', true );
+    $displayPages = get_post_meta( $post->ID, '_popx_display_pages', true );
 
     self::meta_style();
 
     // Fields 
     $getFields = self::$getFields;
 
-
-
-    $getFields->border_field(
-      [
-        'title' => 'Wrapper Border',
-        'name' => 'popup_wrap_border',
-        'value' => $wrapBorder
-      ]
-    );
-
-    $getFields->border_radius_field(
-      [
-        'title' => 'Wrapper Border Radius',
-        'name' => 'popup_wrap_border_radius',
-        'value' => $wrapBorderRadius
-      ]
-    );
-
-    $getFields->box_shadow_field(
-      [
-        'title' => 'Wrapper Box Shadow',
-        'name' => 'popup_wrap_box_shadow',
-        'value' => $wrapBoxShadow
-      ]
-    );
-
-    $getFields->color_field(
-      [
-        'title' => 'Wrapper Background',
-        'name' => 'popup_wrap_bg_color',
-        'value' => $wrapBgColor
-      ]
-    );
-
     ?>
-
-    <div class="popx-meta-field-group">
-      <div class="popx-meta-field-inner popx-field-type-switch">
-        <label><?php esc_html_e( 'Active Popup', 'popx' ); ?></label>
-        <input type="checkbox" value="yes" <?php checked( $activePopup, 'yes' ); ?> name="active_popup">
+    <div class="popx-meta-content-box">
+      
+      <div class="popx-meta-tabs">
+        <ul>
+          <li id="settings_tab" class="popx-tab popx-active"><span><img src="<?php echo esc_url( POPX_DIR_URL.'core/fields/assets/icon/settings.svg' ); ?>" /></span> <?php esc_html_e( 'Settings', 'popx' ); ?> </li>
+          <li id="settings_style" class="popx-tab"><span><img src="<?php echo esc_url( POPX_DIR_URL.'core/fields/assets/icon/style.svg' ); ?>" /></span> <?php esc_html_e( 'Style', 'popx' ); ?> </li>
+        </ul>
       </div>
-    </div>
 
-    <div class="popx-meta-field-group">
-      <div class="popx-meta-field-inner">
-        <label><?php esc_html_e( 'Popup Position', 'popx' ); ?></label>
-        <select class="popx-input-field" name="popup_position">
-          <option <?php selected( $position, 'top-right' ); ?> value="right-top">Top Right</option>
-          <option <?php selected( $position, 'top-left' ); ?> value="left-top">Top Left</option>
-          <option <?php selected( $position, 'center' ); ?> value="center">Center</option>
-          <option <?php selected( $position, 'bottom-right' ); ?> value="right-bottom">Bottom Right</option>
-          <option <?php selected( $position, 'bottom-left' ); ?> value="left-bottom">Bottom Left </option>
-        </select>
-      </div>
-    </div>
+      <div class="popx-meta-tabs-content-area">
 
-    <div class="popx-meta-field-group">
-      <div class="popx-meta-field-inner">
-        <label><?php esc_html_e( 'Display Page Type', 'popx' ); ?></label>
-        <select class="popx-input-field" name="display_page_type">
-          <option <?php selected( $position, 'top-right' ); ?> value="entire-pages">Entire Pages</option>
-          <option <?php selected( $position, 'top-right' ); ?> value="singular-archive">Singular and Archive Pages</option>
-          <option <?php selected( $position, 'top-right' ); ?> value="specific-pages">Specific Pages</option>
-        </select>
-      </div>
-    </div>
+        <div data-tabref="settings_tab" class="popx-meta-tab-content popx-active">
+          <?php
+          $getFields->switcher_field(
+            [
+              'title' => esc_html__( 'Active Popup', 'popx' ),
+              'name' => 'active_popup',
+              'value' => $activePopup
+            ]
+          );
+          $getFields->select_field(
+            [
+              'title' => esc_html__( 'Popup Position', 'popx' ),
+              'name' => 'popup_position',
+              'value' => $position,
+              'options' => [
+                  'top-right'     => esc_html__( 'Top Right', 'popx' ),
+                  'top-left'      => esc_html__( 'Top Left', 'popx' ),
+                  'center'        => esc_html__( 'Center', 'popx' ),
+                  'bottom-right'  => esc_html__( 'Bottom Right', 'popx' ),
+                  'bottom-left'   => esc_html__( 'Bottom Left', 'popx' ),
+              ]
+            ]
+          );
+    
+          $getFields->select_field(
+            [
+              'title' => esc_html__( 'Display Page Type', 'popx' ),
+              'name' => 'display_page_type',
+              'value' => $displayPageType,
+              'options' => [
+                  'entire-pages'     => esc_html__( 'Entire Pages', 'popx' ),
+                  'singular-archive'      => esc_html__( 'Singular and Archive Pages', 'popx' ),
+                  'specific-pages'        => esc_html__( 'Specific Pages', 'popx' ),
+              ]
+            ]
+          );
+          
+          $getFields->select_field(
+            [
+              'title' => esc_html__( 'Pages', 'popx' ),
+              'name' => 'display_pages',
+              'value' => $displayPages,
+              'options' => \Popx\Helper::getPagesList(),
+              'condition' => [ 'display_page_type' => ['specific-pages'] ]
+            ]
+          );
+          $getFields->number_field(
+            [
+              'title' => esc_html__( 'Popup Width', 'popx' ),
+              'name' => 'popup_width',
+              'value' => $width
+            ]
+          );
 
-    <div class="popx-meta-field-group">
-      <div class="popx-meta-field-inner">
-        <label><?php esc_html_e( 'Pages', 'popx' ); ?></label>
-        <select class="popx-input-field" name="display_pages">
-          <?php 
-          echo \Popx\Helper::getPagesSelectOption();
+
+          $getFields->number_field(
+            [
+              'title' => esc_html__( 'Popup Height', 'popx' ),
+              'name' => 'popup_height',
+              'value' => $height
+            ]
+          );
+
+          $getFields->number_field(
+            [
+              'title' => esc_html__( 'Popup Show Delay Time', 'popx' ),
+              'name' => 'delay_time',
+              'value' => $delayTime
+            ]
+          );
           ?>
-        </select>
+        </div>
+        <div data-tabref="settings_style" class="popx-meta-tab-content popx-hide">
+          <?php
+          $getFields->border_field(
+            [
+              'title' => esc_html__( 'Wrapper Border', 'popx' ),
+              'name' => 'popup_wrap_border',
+              'value' => $wrapBorder
+            ]
+          );
+
+          $getFields->border_radius_field(
+            [
+              'title' => esc_html__( 'Wrapper Border Radius', 'popx' ),
+              'name' => 'popup_wrap_border_radius',
+              'value' => $wrapBorderRadius
+            ]
+          );
+
+          $getFields->box_shadow_field(
+            [
+              'title' => esc_html__( 'Wrapper Box Shadow', 'popx' ),
+              'name' => 'popup_wrap_box_shadow',
+              'value' => $wrapBoxShadow
+            ]
+          );
+
+          $getFields->color_field(
+            [
+              'title' => esc_html__( 'Wrapper Background', 'popx' ),
+              'name' => 'popup_wrap_bg_color',
+              'value' => $wrapBgColor
+            ]
+          );
+          $getFields->switcher_field(
+            [
+              'title' => esc_html__( 'Background Overly', 'popx' ),
+              'name' => 'active_bg_overly',
+              'value' => $bgOverly
+            ]
+          );
+          ?>
+        </div>
+
       </div>
-    </div>
-    <div class="popx-meta-field-group">
-      <div class="popx-meta-field-inner popx-field-type-switch">
-        <label><?php esc_html_e( 'Background Overly', 'popx' ); ?></label>
-        <input type="checkbox" value="yes" <?php checked( $bgOverly, 'yes' ); ?> name="active_bg_overly">
-      </div>
-    </div>
-    <div class="popx-meta-field-group">
-      <div class="popx-meta-field-inner popx-field-type-number">
-        <label><?php esc_html_e( 'Modal Width', 'popx' ); ?></label>
-        <input type="number" class="popx-input-field" value="<?php echo esc_attr( $width ); ?>"  name="modal_width">
-      </div>
-    </div>
-    <div class="popx-meta-field-group">
-      <div class="popx-meta-field-inner popx-field-type-number">
-        <label><?php esc_html_e( 'Modal Height', 'popx' ); ?></label>
-        <input type="number" class="popx-input-field" value="<?php echo esc_attr( $height ); ?>" name="modal_height">
-      </div>
-    </div>
-    <div class="popx-meta-field-group">
-      <div class="popx-meta-field-inner popx-field-type-number">
-        <label><?php esc_html_e( 'Modal Show Delay Time', 'popx' ); ?></label>
-        <input type="number" class="popx-input-field" value="<?php echo esc_attr( $delayTime ); ?>" name="delay_time">
-      </div>
+
     </div>
     <?php
+
+
   }
   
   public static function save_meta_data( $post_id ) {
-      //
-      $position = '';
-      if( isset( $_POST['popup_position'] ) ) {
-        $position = $_POST['popup_position'];
-      }
-      //
-      $activePopup = '';
-      if( isset( $_POST['active_popup'] ) ) {
-        $activePopup = $_POST['active_popup'];
-      }
-      //
-      $pageType = '';
-      if( isset( $_POST['display_page_type'] ) ) {
-        $pageType = $_POST['display_page_type'];
-      }
-      //
-      $bgOverly = '';
-      if( isset( $_POST['active_bg_overly'] ) ) {
-        $bgOverly = $_POST['active_bg_overly'];
-      }
 
       //
-      $delayTime = '';
-      if( isset( $_POST['delay_time'] ) ) {
-        $delayTime = $_POST['delay_time'];
-      }
+      update_post_meta( $post_id, '_popx_popup_position', sanitize_text_field(  $_POST['popup_position'] ?? ''  ) );
+      update_post_meta( $post_id, '_popx_active_popup', sanitize_text_field( $_POST['active_popup'] ?? '' ) );
+      update_post_meta( $post_id, '_popx_popup_bg_overly', sanitize_text_field( $_POST['active_bg_overly'] ?? '' ) );
+      update_post_meta( $post_id, '_popx_popup_delay_time', sanitize_text_field( $_POST['delay_time'] ?? '' ) );
+      update_post_meta( $post_id, '_popx_display_page_type', sanitize_text_field( $_POST['display_page_type'] ?? '' ) );
 
-      //
-      $displayPages = '';
-      if( isset( $_POST['display_pages'] ) ) {
-        $displayPages = $_POST['display_pages'];
-      }
-      //
-      $width = '';
-      if( isset( $_POST['modal_width'] ) ) {
-        $width = $_POST['modal_width'];
-      }
-      //
-      $height = '';
-      if( isset( $_POST['modal_height'] ) ) {
-        $height = $_POST['modal_height'];
-      }
-      //
-      $bgColor = '';
-      if( isset( $_POST['popup_wrap_bg_color'] ) ) {
-        $bgColor = $_POST['popup_wrap_bg_color'];
-      }
-      //
-      $wrapBorder = [];
-      if( isset( $_POST['popup_wrap_border'] ) ) {
-        $wrapBorder = $_POST['popup_wrap_border'];
-      }
-      //
-      $wrapBoxShadow = [];
-      if( isset( $_POST['popup_wrap_box_shadow'] ) ) {
-        $wrapBoxShadow = $_POST['popup_wrap_box_shadow'];
-      }
-      //
-      $wrapBorderRadius = [];
-      if( isset( $_POST['popup_wrap_border_radius'] ) ) {
-        $wrapBorderRadius = $_POST['popup_wrap_border_radius'];
-      }
+      update_post_meta( $post_id, '_popx_display_pages', sanitize_text_field( $_POST['display_pages'] ?? '' ) );
 
-      update_post_meta( $post_id, '_popx_popup_position', sanitize_text_field( $position ) );
-      update_post_meta( $post_id, '_popx_active_popup', sanitize_text_field( $activePopup ) );
-      update_post_meta( $post_id, '_popx_popup_bg_overly', sanitize_text_field( $bgOverly ) );
-      update_post_meta( $post_id, '_popx_popup_delay_time', sanitize_text_field( $delayTime ) );
-      update_post_meta( $post_id, '_popx_display_page_type', sanitize_text_field( $pageType ) );
+      update_post_meta( $post_id, '_popx_popup_popup_width', sanitize_text_field( $_POST['popup_width'] ?? '' ) );
+      update_post_meta( $post_id, '_popx_popup_popup_height', sanitize_text_field( $_POST['popup_height'] ?? '' ) );
 
-      update_post_meta( $post_id, '_popx_display_pages', sanitize_text_field( $displayPages ) );
-
-      update_post_meta( $post_id, '_popx_popup_modal_width', sanitize_text_field( $width ) );
-      update_post_meta( $post_id, '_popx_popup_modal_height', sanitize_text_field( $height ) );
-
-      update_post_meta( $post_id, '_popx_popup_wrap_bg_color', sanitize_text_field( $bgColor ) );
-      update_post_meta( $post_id, '_popx_popup_wrap_border', array_map( 'sanitize_text_field', $wrapBorder ) );
-      update_post_meta( $post_id, '_popx_popup_wrap_box_shadow', array_map( 'sanitize_text_field', $wrapBoxShadow ) );
-      update_post_meta( $post_id, '_popx_popup_wrap_border_radius', array_map( 'sanitize_text_field', $wrapBorderRadius ) );
+      update_post_meta( $post_id, '_popx_popup_wrap_bg_color', sanitize_text_field( $_POST['popup_wrap_bg_color'] ?? '' ) );
+      update_post_meta( $post_id, '_popx_popup_wrap_border', array_map( 'sanitize_text_field', $_POST['popup_wrap_border'] ?? [] ) );
+      update_post_meta( $post_id, '_popx_popup_wrap_box_shadow', array_map( 'sanitize_text_field', $_POST['popup_wrap_box_shadow'] ?? [] ) );
+      update_post_meta( $post_id, '_popx_popup_wrap_border_radius', array_map( 'sanitize_text_field', $_POST['popup_wrap_border_radius'] ?? [] ) );
   }
 
   public static function meta_style() {

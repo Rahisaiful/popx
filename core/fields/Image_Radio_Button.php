@@ -24,6 +24,7 @@ trait Image_Radio_Button {
       'options' => [],
       'placeholder' => '',
       'description' => '',
+      'value' => '',
       'condition'   => ''
     ];
 
@@ -34,18 +35,16 @@ trait Image_Radio_Button {
 
 	public  function image_radio_markup( $args ) {
 
-    $fieldName = 'admintosh_options['.esc_attr( $args['name'] ).']';
-    $opt = get_option('admintosh_options');
-    $value = !empty( $opt[$args['name']] ) ? $opt[$args['name']] : '';
-    $condition = !empty( $args['condition'] ) ? 'data-condition='.json_encode( $args['condition'] ) : '';
+    $value = !empty( $args['value'] ) ? $args['value'] : '';
+    $condition = !empty( $args['condition'] ) ? 'data-condition='.wp_json_encode( $args['condition'] ) : '';
     ?>
-    <div class="admintosh-label admintosh-field-wrp" <?php echo esc_attr( $condition ); ?>>
-        <h5><?php echo esc_html( $args['title'] ); ?></h5>
+    <div class="popx-label popx-field-wrp" <?php echo esc_attr( $condition ); ?>>
+        <h3><?php echo esc_html( $args['title'] ); ?></h3>
         <div class="input-field-block">
-            <div class="admintosh-img-button-switch">
+            <div class="popx-img-button-switch">
             <?php
             foreach( $args['options'] as $key => $url ) {
-              echo '<label class="radio-img"><input type="radio" name="'.esc_attr( $fieldName ).'" '.checked(  $value,$key,false ).' value="'.esc_attr( $key ).'" /><img src="'.esc_url( $url ).'"></label>';
+              echo '<label class="radio-img"><input type="radio" name="'.esc_attr( $args['name'] ).'" '.checked(  $value,$key,false ).' value="'.esc_attr( $key ).'" /><img src="'.esc_url( $url ).'"></label>';
             }
             ?>
             </div>

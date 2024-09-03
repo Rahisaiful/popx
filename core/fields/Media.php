@@ -16,6 +16,7 @@ trait Media {
         $default = [
             'title' => '',
             'name' => '',
+            'value' => '',
             'condition'   => '',
             'description' => ''
         ];
@@ -25,21 +26,20 @@ trait Media {
     }
 
     public function media_markup( $args ) {
-        $fieldName = 'admintosh_options['.esc_attr( $args['name'] ).']';
-        $opt = get_option('admintosh_options');
-        $value = !empty( $opt[$args['name']] ) ? $opt[$args['name']] : '';
-        $condition = !empty( $args['condition'] ) ? 'data-condition='.json_encode( $args['condition'] ) : '';
+        
+        $value = !empty( $args['value'] ) ? $args['value'] : '';
+        $condition = !empty( $args['condition'] ) ? 'data-condition='.wp_json_encode( $args['condition'] ) : '';
         ?>
-        <div class="admintosh-label admintosh-field-wrp" <?php echo esc_attr( $condition ); ?>>
-            <h5><?php echo esc_html( $args['title'] ); ?></h5>
+        <div class="popx-label popx-field-wrp" <?php echo esc_attr( $condition ); ?>>
+            <h3><?php echo esc_html( $args['title'] ); ?></h3>
             <div>
                 <?php
                 if( !empty( $args['description'] ) ) {
                     echo '<p>'.esc_html( $args['description'] ).'</p>';
                 }
                 ?>
-            <input class="admintosh_background_image" type="text" name="<?php echo esc_attr( $fieldName ); ?>" value="<?php echo esc_attr( $value ); ?>" />
-            <input type="button" class="admintosh_image_upload_btn button-primary" value="<?php esc_html_e( 'Upload', 'admintosh' ) ?>" />
+            <input class="popx_background_image" type="text" name="<?php echo esc_attr( $args['name'] ); ?>" value="<?php echo esc_attr( $value ); ?>" />
+            <input type="button" class="popx_image_upload_btn button-primary" value="<?php esc_html_e( 'Upload', 'popx' ) ?>" />
             </div>
         </div>
         <?php

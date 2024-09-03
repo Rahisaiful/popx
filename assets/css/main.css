@@ -1,14 +1,14 @@
-.popx-modal-wrap {
+.popx-popup-wrap {
 	visibility: hidden;
     opacity: 0;
     transition: all .4s;
     z-index: 9999999;
 }
-.popx-modal-open  {
+.popx-popup-open  {
 	visibility: visible;
     opacity: 1;
 }
-.popx-modal-bg-overly {
+.popx-popup-bg-overly {
 	position: fixed;
     top: 0;
     right: 0;
@@ -19,14 +19,14 @@
     justify-content: center;
     background: rgba(77, 77, 77, .7);
 }
-.popx-modal-top-inner {
+.popx-popup-top-inner {
 	position: absolute;
 	max-width: 500px;
 	top: 50%;
 	transform: translate(-50%, -50%) !important;
 	left: 50%;
 }
-.popx-modal-close {
+.popx-popup-close {
     position: absolute;
     top: -15px;
     right: -13px;
@@ -40,7 +40,7 @@
     justify-content: center;
     border-radius: 50%;
 }
-.popx-modal-content-wrap {
+.popx-popup-content-wrap {
     background: #fff;
     padding: 20px;
     border: 1px solid #ffdada;
@@ -48,44 +48,44 @@
     border-radius: 4px;
 }
 
-.popx-position-right-bottom .popx-modal-top-inner,
-.popx-position-right-top .popx-modal-top-inner,
-.popx-position-left-top .popx-modal-top-inner,
-.popx-position-left-bottom .popx-modal-top-inner {
+.popx-position-bottom-right .popx-popup-top-inner,
+.popx-position-top-right .popx-popup-top-inner,
+.popx-position-top-left .popx-popup-top-inner,
+.popx-position-bottom-left .popx-popup-top-inner {
 	transform: none !important;
     position: fixed !important;
 }
-.popx-position-right-bottom .popx-modal-top-inner {
+.popx-position-bottom-right .popx-popup-top-inner {
 	left: auto;
     right: 17px;
     bottom: 15px;
     top: auto;
 }
-.popx-position-right-top .popx-modal-top-inner {
+.popx-position-top-right .popx-popup-top-inner {
 	right: 17px;
     bottom: auto;
     top: 24px;
     left: auto;
 }
-.popx-position-left-top .popx-modal-top-inner {
+.popx-position-top-left .popx-popup-top-inner {
 	right: auto;
     bottom: auto;
     top: 24px;
     left: 8px;
 }
-.popx-position-left-bottom .popx-modal-top-inner {
+.popx-position-bottom-left .popx-popup-top-inner {
 	right: auto;
     bottom: 10px;
     top: auto;
     left: 15px;
 }
-.popx-position-center .popx-modal-top-inner {
+.popx-position-center .popx-popup-top-inner {
 	top: 50%;
     transform: translate(-50%, -50%) !important;
     left: 50%;
     position: fixed;
 }
-.popx-modal-show {
+.popx-popup-show {
 	visibility: visible;
 	opacity: 1;
 }

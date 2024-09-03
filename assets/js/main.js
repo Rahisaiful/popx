@@ -17,6 +17,7 @@ const popupItemFetch = () => {
 		},
 		success: function( res ) {
 			$('.popx-base-wrap').html(res);
+
 			//
 			popupShow();
 		}
@@ -32,22 +33,22 @@ popupItemFetch();
 const popupShow = () => {
 
 
-	$('.popx-modal-activate').each( function() {
+	$('.popx-popup-activate').each( function() {
 
         let $t = $(this),
             $delayTime = $t.data('delay-time');
             $popxId = $t.data('popx-id'),
-            $expiry = localStorage.getItem( "popx_modal_"+$popxId ),
+            $expiry = localStorage.getItem( "popx_popup_"+$popxId ),
             $expiry = $expiry != null ? JSON.parse($expiry) : '';
 
             console.log( $expiry );
 
-            checkVisibilityExpiry( $expiry, "popx_modal_"+$popxId );
+            checkVisibilityExpiry( $expiry, "popx_popup_"+$popxId );
 
             if( $expiry == '' || $expiry.value != 'yes' ) {
 
             	setTimeout( function() {
-	            	$t.addClass('popx-modal-show');
+	            	$t.addClass('popx-popup-show');
 	          	}, $delayTime);
 
             }
@@ -55,17 +56,17 @@ const popupShow = () => {
 
       } )
 
-      // Close Modal
+      // Close Popup
 
-      $('.popx-modal-close').on( 'click', function() {
+      $('.popx-popup-close').on( 'click', function() {
 
-      	let $this = $(this).closest('.popx-modal-activate'),
+      	let $this = $(this).closest('.popx-popup-activate'),
       		$id = $this.data('popx-id'),
       		now = new Date();
 
-        	$this.removeClass('popx-modal-show');
+        	$this.removeClass('popx-popup-show');
         	let $data = {'value': 'yes', 'expiry_time': now.getTime() + 60000}; //6000 = 6sec
-        	localStorage.setItem("popx_modal_"+$id, JSON.stringify($data));
+        	localStorage.setItem("popx_popup_"+$id, JSON.stringify($data));
 
       } )
 
@@ -82,10 +83,6 @@ const checkVisibilityExpiry = ( data, key ) => {
 
 }
 	
-
-
-
-
 
 
 

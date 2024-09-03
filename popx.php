@@ -1,11 +1,11 @@
 <?php
 /*
-Plugin Name:  Popx
+Plugin Name:  PopX - Popup Builder
 Plugin URI:   https://wpmobo.com/popx
-Description:  
+Description:  PopX is a versatile WordPress popup builder, allowing users to create and customize engaging popups effortlessly.
 Version:      1.0.0
 Author:       WPMobo
-Author URI:   https://wpmobo.com/
+Author URI:   https://wpmobo.com
 License:      GPL2
 License URI:  https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain:  popx
@@ -15,6 +15,10 @@ Domain Path:  /languages
 
 // Block Direct access
 if( !defined( 'ABSPATH' ) ){ die( 'You should not access this file directly!.' ); }
+
+// Define Plugin Version.
+if( !defined( 'POPX_VERSION' ) )
+	define( 'POPX_VERSION', '1.0.0' );
 
 // Define Constants for direct access alert message.
 if( !defined( 'POPX_ALERT_MSG' ) )
@@ -75,7 +79,8 @@ final class Popx {
 			'is_single_archive' => !empty( $_POST['is_single_archive'] ) ? $_POST['is_single_archive'] : ''
 		];
 
-        \Popx\Popx_Base::modal_html_one( $pages );
+        \Popx\Popx_Base::popup_html_one( $pages );
+
 
         wp_die();
     }
@@ -88,8 +93,8 @@ final class Popx {
 		require_once POPX_DIR_PATH . 'classes/Popx_Base.php';
 	}
 	public function enqueue_scripts() {
-		wp_enqueue_style( 'popx-main', POPX_DIR_URL.'assets/css/main.css' );
-		wp_enqueue_script( 'popx-main', POPX_DIR_URL.'assets/js/main.js', ['jquery'], '1.0.0', true );
+		wp_enqueue_style( 'popx-main', POPX_DIR_URL.'assets/css/main.css', [], POPX_VERSION );
+		wp_enqueue_script( 'popx-main', POPX_DIR_URL.'assets/js/main.js', ['jquery'], POPX_VERSION, true );
 
 		wp_localize_script(
 			'popx-main', 
@@ -100,7 +105,7 @@ final class Popx {
 				'pageid' => !is_front_page() && !is_home() && is_page() ? get_the_ID() : '',
 				'is_front_page' => is_front_page(),
 				'is_home' => is_home(),
-				'is_shop' => is_shop(),
+				'is_shop' => $this->is_wc() && is_shop(),
 				'is_single_archive' => is_single() || is_archive()
 			]
 
@@ -109,10 +114,14 @@ final class Popx {
 
 	}
 
+	public function is_wc() {
+		return class_exists( 'woocommerce' );
+	}
+
 	// Plugin page settings link add
 	public function add_plugin_link( $plugin_actions, $plugin_file ) {
 
-	    $plugin_actions['popx_settings'] = sprintf( esc_html__( '%sSettings%s', 'popx' ), '<a href="'.esc_url( admin_url( 'admin.php?page=reviewbucket-setting-admin' ) ).'">', '</a>' );
+	    $plugin_actions['popx_settings'] = sprintf( esc_html__( '%sSettings%s', 'popx' ), '<a href="'.esc_url( admin_url( 'edit.php?post_type=popx_popup' ) ).'">', '</a>' );
 	    return $plugin_actions;
 	}
 
